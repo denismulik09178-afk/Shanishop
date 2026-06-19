@@ -5,6 +5,7 @@ import { formatCurrency } from "@/lib/format";
 import { useCart } from "@/lib/cart-context";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 const VOLUMES = [1, 2, 3, 5, 10, 20, 30, 50];
 
@@ -22,17 +23,23 @@ export default function PerfumeDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-32 pb-24 px-4 flex items-center justify-center">
-        <div className="animate-pulse text-primary font-serif text-xl tracking-widest">Завантаження...</div>
+      <div className="min-h-screen pt-32 pb-24 px-4 flex items-center justify-center bg-background">
+        <motion.div 
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="text-foreground/50 font-serif text-2xl tracking-[0.2em] uppercase font-light"
+        >
+          Завантаження
+        </motion.div>
       </div>
     );
   }
 
   if (!perfume) {
     return (
-      <div className="min-h-screen pt-32 pb-24 px-4 flex items-center justify-center">
+      <div className="min-h-screen pt-32 pb-24 px-4 flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
-          <h1 className="font-serif text-3xl text-foreground">Аромат не знайдено</h1>
+          <h1 className="font-serif text-4xl text-foreground font-light tracking-widest uppercase">Аромат не знайдено</h1>
         </div>
       </div>
     );
@@ -47,73 +54,123 @@ export default function PerfumeDetail() {
   };
 
   return (
-    <div className="w-full pt-24 pb-32 px-4 md:px-8 bg-background min-h-[calc(100vh-300px)]">
-      <div className="container mx-auto max-w-6xl mt-8">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+    <div className="w-full pt-32 pb-48 px-6 md:px-12 bg-background min-h-screen">
+      <div className="container mx-auto max-w-7xl mt-8">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           {/* Image */}
-          <div className="lg:w-1/2">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:w-1/2"
+          >
             <div className="aspect-[3/4] relative bg-card overflow-hidden">
               <img 
                 src={perfume.image_url || "/perfume-placeholder.png"} 
                 alt={perfume.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Details */}
-          <div className="lg:w-1/2 flex flex-col justify-center">
-            <div className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:w-1/2 flex flex-col justify-center py-10"
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-primary text-xs font-semibold tracking-[0.25em] uppercase mb-6"
+            >
               {perfume.brand}
-            </div>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-              {perfume.name}
-            </h1>
+            </motion.div>
             
-            <div className="flex items-center gap-4 mb-8">
-              <span className="text-2xl font-serif text-foreground">
-                {formatCurrency(perfume.price_per_ml * selectedVolume)}
-              </span>
-              <span className="text-muted-foreground text-sm">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-8 font-light tracking-wide uppercase leading-tight"
+            >
+              {perfume.name}
+            </motion.h1>
+            
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex items-end gap-6 mb-16 border-b border-white/10 pb-10"
+            >
+              <AnimatePresence mode="wait">
+                <motion.span 
+                  key={selectedVolume}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="text-4xl font-serif text-foreground tracking-widest font-light"
+                >
+                  {formatCurrency(perfume.price_per_ml * selectedVolume)}
+                </motion.span>
+              </AnimatePresence>
+              <span className="text-foreground/40 text-xs tracking-widest uppercase mb-1">
                 ({formatCurrency(perfume.price_per_ml)} / 1 мл)
               </span>
-            </div>
+            </motion.div>
 
-            <div className="mb-10">
-              <h3 className="text-sm uppercase tracking-widest text-muted-foreground mb-4 font-semibold">Об'єм на розпив</h3>
-              <div className="flex flex-wrap gap-3">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="mb-16"
+            >
+              <h3 className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-6 font-semibold">Об'єм на розпив</h3>
+              <div className="flex flex-wrap gap-4">
                 {VOLUMES.map(vol => (
                   <button
                     key={vol}
                     onClick={() => setSelectedVolume(vol)}
                     className={`
-                      px-4 py-2 border text-sm font-medium transition-all duration-300
+                      w-14 h-14 border text-xs font-medium transition-all duration-500 flex items-center justify-center tracking-wider
                       ${selectedVolume === vol 
-                        ? 'border-primary bg-primary text-primary-foreground' 
-                        : 'border-border text-foreground hover:border-primary/50'
+                        ? 'border-primary bg-primary text-black' 
+                        : 'border-white/20 text-foreground hover:border-white/60 hover:bg-white/5'
                       }
                     `}
                   >
-                    {vol} мл
+                    {vol}
                   </button>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <Button 
-              onClick={handleAddToCart}
-              disabled={!perfume.in_stock}
-              size="lg" 
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground tracking-widest uppercase font-semibold h-14 rounded-none mb-12 shadow-[0_0_20px_rgba(212,175,55,0.1)]"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
             >
-              {perfume.in_stock ? "Додати до кошика" : "Немає в наявності"}
-            </Button>
+              <Button 
+                onClick={handleAddToCart}
+                disabled={!perfume.in_stock}
+                size="lg" 
+                className="w-full bg-transparent hover:bg-white text-foreground hover:text-black border border-white/30 tracking-[0.2em] uppercase font-light h-16 rounded-none mb-20 transition-all duration-500"
+              >
+                {perfume.in_stock ? "Додати до кошика" : "Немає в наявності"}
+              </Button>
+            </motion.div>
 
-            <div className="space-y-8">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="space-y-12"
+            >
               {perfume.description && (
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-foreground mb-3 font-semibold">Опис аромату</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
+                  <h3 className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-4 font-semibold">Легенда</h3>
+                  <p className="text-foreground/70 leading-loose text-sm font-light">
                     {perfume.description}
                   </p>
                 </div>
@@ -121,14 +178,14 @@ export default function PerfumeDetail() {
 
               {perfume.notes && (
                 <div>
-                  <h3 className="text-sm uppercase tracking-widest text-foreground mb-3 font-semibold">Ноти</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm italic font-serif">
+                  <h3 className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-4 font-semibold">Ноти</h3>
+                  <p className="text-primary/80 leading-relaxed text-lg italic font-serif tracking-wide">
                     {perfume.notes}
                   </p>
                 </div>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>
