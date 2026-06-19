@@ -29,7 +29,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   if (isLoading || !adminMe?.authenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-pulse text-primary font-serif text-xl tracking-widest">MAISON NOIR</div>
+        <div className="animate-pulse text-primary font-serif text-xl tracking-widest">BABLGAM PARFUM</div>
       </div>
     );
   }
@@ -67,7 +67,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         <div className="h-full flex flex-col">
           <div className="h-16 flex items-center justify-between px-6 border-b border-border">
             <Link href="/" className="font-serif text-xl tracking-widest text-primary">
-              MAISON NOIR
+              BABLGAM PARFUM
             </Link>
             <button className="md:hidden text-muted-foreground hover:text-foreground" onClick={() => setMobileOpen(false)}>
               <X size={20} />

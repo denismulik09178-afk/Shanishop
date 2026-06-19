@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
+import { Link, useSearch } from "wouter";
 import { useListPerfumes, useListCategories } from "@workspace/api-client-react";
 import { formatCurrency } from "@/lib/format";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { 
   Select, 
   SelectContent, 
@@ -13,8 +13,15 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Catalog() {
-  const [categoryId, setCategoryId] = useState<number | null>(null);
+  const search = useSearch();
+  const urlCategoryId = new URLSearchParams(search).get("category");
+  const [categoryId, setCategoryId] = useState<number | null>(urlCategoryId ? parseInt(urlCategoryId) : null);
   const [sort, setSort] = useState<string>("id:desc");
+
+  useEffect(() => {
+    const id = new URLSearchParams(search).get("category");
+    setCategoryId(id ? parseInt(id) : null);
+  }, [search]);
 
   const { data: categories } = useListCategories();
   const { data: perfumes, isLoading } = useListPerfumes({ 

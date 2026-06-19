@@ -63,7 +63,7 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-card border border-border p-8 shadow-2xl">
         <div className="text-center mb-10">
-          <h1 className="font-serif text-3xl tracking-widest text-primary mb-2">MAISON NOIR</h1>
+          <h1 className="font-serif text-3xl tracking-widest text-primary mb-2">BABLGAM PARFUM</h1>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Адміністративна панель</p>
         </div>
 
