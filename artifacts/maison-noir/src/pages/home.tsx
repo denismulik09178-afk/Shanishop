@@ -28,7 +28,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-transparent" />
         </div>
         
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20 animate-in fade-in zoom-in duration-1000">
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-widest text-primary mb-6 drop-shadow-2xl">
             MAISON NOIR
           </h1>

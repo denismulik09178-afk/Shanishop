@@ -59,12 +59,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/admin" component={AdminLogin} />
-      <Route path="/admin/:any*">
-        <AdminRoutes />
-      </Route>
-      <Route path="/:any*">
-        <PublicRoutes />
-      </Route>
+      <Route path="/admin/:any*" component={AdminRoutes} />
+      <Route component={PublicRoutes} />
     </Switch>
   );
 }
