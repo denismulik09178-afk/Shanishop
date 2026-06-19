@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "Jsmn5r6H50MQZDpRVJUe_"
+uri = "file://artifacts/maison-noir/public/hero.png"
+type = "image"
+title = "Luxury dark perfume boutique hero"
+
+[[generated]]
+id = "TywYenamhsbnhLvpLGdP5"
+uri = "file://artifacts/maison-noir/public/perfume-placeholder.png"
+type = "image"
+title = "Dark amber perfume bottle"
+
+[[generated]]
+id = "JTOVLNpVobDE7dO9PJ-KA"
+uri = "file://artifacts/maison-noir/public/about.png"
+type = "image"
+title = "Luxury perfumery interior about"

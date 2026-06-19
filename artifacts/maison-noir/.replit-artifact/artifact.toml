@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "MAISON NOIR — Парфумерія"
+version = "1.0.0"
+id = "artifacts/maison-noir"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19531
+
+[services.development]
+run = "pnpm --filter @workspace/maison-noir run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/maison-noir", "run", "build" ]
+publicDir = "artifacts/maison-noir/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19531"
+BASE_PATH = "/"
