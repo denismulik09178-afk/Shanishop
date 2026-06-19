@@ -219,7 +219,7 @@ export default function Home() {
                                 transition={{ duration: 1, ease: "easeOut" }}
                                 src={perfume.image_url || "/perfume-placeholder.png"}
                                 alt={perfume.name}
-                                className="w-full h-full object-contain p-3 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700"
+                                className="w-full h-full object-contain p-3 transition-all duration-700"
                               />
                             </div>
                             <div className="text-[9px] tracking-[0.2em] uppercase mb-1 opacity-60" style={{ color: cfg.accent }}>
@@ -289,7 +289,7 @@ export default function Home() {
                         transition={{ duration: 1.5, ease: "easeOut" }}
                         src={perfume.image_url || "/perfume-placeholder.png"}
                         alt={perfume.name}
-                        className="w-full h-full object-contain p-4 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000"
+                        className="w-full h-full object-contain p-4 transition-all duration-1000"
                       />
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />
                       <div className="absolute inset-0 flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -354,7 +354,7 @@ export default function Home() {
                     <img
                       src={p.image_url || ""}
                       alt={p.name}
-                      className="w-full h-full object-contain p-4 mix-blend-luminosity opacity-80 hover:opacity-100 transition-opacity duration-700"
+                      className="w-full h-full object-contain p-4 opacity-90 hover:opacity-100 transition-opacity duration-700"
                     />
                   </div>
                 ))}

@@ -106,7 +106,7 @@ export default function PerfumeDetail() {
                   transition={{ duration: 1.5, ease: "easeOut" }}
                   src={perfume.image_url || "/perfume-placeholder.png"}
                   alt={perfume.name}
-                  className="w-full h-full object-contain p-8 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000"
+                  className="w-full h-full object-contain p-8 transition-all duration-1000"
                 />
                 {/* Category badge */}
                 {perfume.category_name && (
@@ -337,7 +337,7 @@ export default function PerfumeDetail() {
                         transition={{ duration: 1 }}
                         src={p.image_url || "/perfume-placeholder.png"}
                         alt={p.name}
-                        className="w-full h-full object-contain p-4 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700"
+                        className="w-full h-full object-contain p-4 transition-all duration-700"
                       />
                     </div>
                     <div className="text-primary/70 text-[9px] tracking-[0.25em] uppercase mb-2">{p.brand}</div>

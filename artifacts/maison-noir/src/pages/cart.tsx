@@ -154,7 +154,7 @@ export default function Cart() {
                       <img
                         src={item.perfume.image_url || "/perfume-placeholder.png"}
                         alt={item.perfume.name}
-                        className="w-full h-full object-contain p-2 mix-blend-luminosity"
+                        className="w-full h-full object-contain p-2"
                       />
                     </div>
                     <div>

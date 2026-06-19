@@ -140,7 +140,7 @@ export default function Catalog() {
                         transition={{ duration: 1.5, ease: "easeOut" }}
                         src={perfume.image_url || "/perfume-placeholder.png"} 
                         alt={perfume.name}
-                        className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000"
+                        className="w-full h-full object-cover transition-all duration-1000"
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700"></div>
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-black/40 backdrop-blur-sm">
