@@ -354,7 +354,7 @@ export default function Home() {
               <div className="space-y-4 md:space-y-6 text-foreground/60 leading-loose text-sm md:text-base font-light tracking-wide">
                 <p>Bablgam Parfum — це не просто бутик парфумерії. Це колекція рідкісних ароматів від найвидатніших парфумерних будинків світу.</p>
                 <p>Ми пропонуємо розлив ексклюзивних ніш-парфумів — від 1 мл. Спробуйте аромат своєї мрії, не купуючи повний флакон.</p>
-                <p className="text-primary italic font-serif text-lg md:text-xl tracking-widest">Твій аромат — твоя підпис.</p>
+                <p className="text-primary italic font-serif text-lg md:text-xl tracking-widest">Твій аромат — твій підпис.</p>
               </div>
 
               <div className="grid grid-cols-3 gap-3 md:gap-6 pt-2 md:pt-4">
