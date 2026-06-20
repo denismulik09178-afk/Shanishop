@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { 
   useListPerfumes, 
@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Upload, X, ImageIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -52,6 +52,86 @@ const formSchema = z.object({
   in_stock: z.boolean().default(true),
   is_featured: z.boolean().default(false),
 });
+
+function ImageUploader({
+  value,
+  onChange,
+}: {
+  value?: string;
+  onChange: (url: string) => void;
+}) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const { toast } = useToast();
+
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("image", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      onChange(data.url);
+    } catch {
+      toast({ variant: "destructive", title: "Помилка", description: "Не вдалося завантажити фото" });
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-start gap-4">
+        <div className="w-20 h-24 border border-border bg-background flex items-center justify-center shrink-0 overflow-hidden">
+          {value ? (
+            <img src={value} alt="" className="w-full h-full object-cover" />
+          ) : (
+            <ImageIcon size={24} className="text-muted-foreground/30" />
+          )}
+        </div>
+        <div className="flex-1 space-y-2">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            className="hidden"
+            onChange={handleFile}
+          />
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={uploading}
+            onClick={() => fileRef.current?.click()}
+            className="rounded-none border-border text-xs tracking-widest uppercase w-full"
+          >
+            <Upload size={14} className="mr-2" />
+            {uploading ? "Завантаження..." : "Завантажити фото"}
+          </Button>
+          {value && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onChange("")}
+              className="rounded-none text-xs text-muted-foreground hover:text-destructive w-full"
+            >
+              <X size={14} className="mr-2" /> Прибрати фото
+            </Button>
+          )}
+          <p className="text-[10px] text-muted-foreground/50 tracking-wide">
+            JPEG, PNG, WEBP · макс. 10 МБ
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function AdminPerfumes() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -328,19 +408,24 @@ export default function AdminPerfumes() {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="image_url"
                   render={({ field }) => (
                     <FormItem className="col-span-2">
-                      <FormLabel className="text-xs uppercase tracking-widest">URL Зображення</FormLabel>
+                      <FormLabel className="text-xs uppercase tracking-widest">Фото товару</FormLabel>
                       <FormControl>
-                        <Input className="rounded-none bg-background border-border" {...field} value={field.value || ""} />
+                        <ImageUploader
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="description"
@@ -374,9 +459,7 @@ export default function AdminPerfumes() {
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded border border-border p-4 bg-background">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-sm font-medium">
-                          В наявності
-                        </FormLabel>
+                        <FormLabel className="text-sm font-medium">В наявності</FormLabel>
                       </div>
                       <FormControl>
                         <Switch
@@ -395,9 +478,7 @@ export default function AdminPerfumes() {
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded border border-border p-4 bg-background">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-sm font-medium">
-                          На головній (Featured)
-                        </FormLabel>
+                        <FormLabel className="text-sm font-medium">На головній (Featured)</FormLabel>
                       </div>
                       <FormControl>
                         <Switch
