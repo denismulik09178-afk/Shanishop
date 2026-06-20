@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "Jsmn5r6H50MQZDpRVJUe_"
@@ -18,3 +17,9 @@ id = "JTOVLNpVobDE7dO9PJ-KA"
 uri = "file://artifacts/maison-noir/public/about.png"
 type = "image"
 title = "Luxury perfumery interior about"
+
+[[outputs]]
+id = "6YqQ7egNn65vrL-DQtcra"
+uri = "file://maison-noir-source.txt"
+type = "text"
+title = "MAISON NOIR — Вихідний код"
