@@ -23,3 +23,9 @@ id = "6YqQ7egNn65vrL-DQtcra"
 uri = "file://maison-noir-source.txt"
 type = "text"
 title = "MAISON NOIR — Вихідний код"
+
+[[outputs]]
+id = "dBGeL_IEiz2gasBagvmVf"
+uri = "file://maison-noir-migration.tar.gz"
+type = "unspecified"
+title = "MAISON NOIR — Повний пакет для міграції"
